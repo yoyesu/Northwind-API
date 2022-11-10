@@ -46,22 +46,6 @@ public class controllerjk {
     public Category getCategoryById(@PathVariable int id){
         return categoryRepository.findById(id).orElse(null);
     }
-
-
-//
-//
-//    @GetMapping("/actors/{id}")
-//    public EntityModel<Actor> getActorByID(@PathVariable int id) {
-//        Actor actor = actorRepository.findById(id).orElse(null);
-//        EntityModel<Actor> entityModel = EntityModel.of(actor);
-//        WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).getActorByID(id));
-//        WebMvcLinkBuilder linkBuilder = linkTo(methodOn(this.getClass()).getAllActors());
-//        entityModel.add(linkBuilder.withRel("all-actors"));
-//        entityModel.add(link.withSelfRel());
-//        return entityModel;
-//    }
-
-
-
+    
 
 }
