@@ -49,7 +49,9 @@ Run the project using IntelliJ Ultimate Edition.
 Make sure to install the dependencies and software included.
 
 Clone the repository below.
-> git clone https://github.com/JamesKempadoo/Northwind-API.git
+```
+git clone https://github.com/JamesKempadoo/Northwind-API.git
+```
 
 ## Endpoints
 
@@ -57,12 +59,15 @@ Clone the repository below.
 
 `GET /products/all`
 
-> curl -X 'GET' \
->  'http://localhost:8080/products/all' \
->  -H 'accept: */*
+```
+curl -X 'GET' \
+  'http://localhost:8080/products/all' \
+  -H 'accept: */*'
+```
 
 ### Response
 
+```
 [
   {
     "id": 1,
@@ -78,3 +83,4 @@ Clone the repository below.
   },
   ...
   ]
+  ```
