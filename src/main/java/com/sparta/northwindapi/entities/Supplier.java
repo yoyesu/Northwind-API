@@ -1,8 +1,12 @@
 package com.sparta.northwindapi.entities;
 
+import com.sparta.northwindapi.entities.Employee.Employee;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "suppliers")
@@ -11,6 +15,10 @@ public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SupplierID", nullable = false)
     private Integer id;
+
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products = new ArrayList<>();
 
     @Size(max = 40)
     @NotNull
@@ -56,6 +64,7 @@ public class Supplier {
     @Lob
     @Column(name = "HomePage")
     private String homePage;
+
 
     public Integer getId() {
         return id;
