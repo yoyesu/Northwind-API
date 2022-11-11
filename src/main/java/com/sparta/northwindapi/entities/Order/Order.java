@@ -1,7 +1,6 @@
 package com.sparta.northwindapi.entities.Order;
 
 import org.springframework.hateoas.RepresentationModel;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;

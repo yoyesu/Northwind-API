@@ -58,7 +58,6 @@ public class ControllerML {
                 ordersInRange.add(order);
             }
         }
-
 //        for (Order order : ordersInRange){
 //            Link linkBuilder = WebMvcLinkBuilder.linkTo(methodOn(this.getClass()).getCustomerById(order.getCustomerID())).withSelfRel();
 //            order.add(linkBuilder);
