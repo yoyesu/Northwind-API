@@ -82,5 +82,35 @@ curl -X 'GET' \
     "category": 1
   },
   ...
-  ]
-  ```
+]
+```
+  
+ ### Request
+ 
+ `GET /products/id`
+
+```
+curl -X 'GET' \
+  'http://localhost:8080/products/1' \
+  -H 'accept: */*'
+```
+
+### Response
+
+```
+{
+  "id": 1,
+  "supplier": 1,
+  "productName": "Chai",
+  "quantityPerUnit": "10 boxes x 20 bags",
+  "unitPrice": 16.2345,
+  "unitsInStock": 39,
+  "unitsOnOrder": 0,
+  "reorderLevel": 10,
+  "discontinued": false,
+  "category": 1
+}
+```
+
+ ### Request
+ 
