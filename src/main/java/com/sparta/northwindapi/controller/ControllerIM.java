@@ -34,7 +34,6 @@ public class ControllerIM {
             if (customer.getId().equals(id)){
                 return customer;
             }
-            break;
         }
         return null;
     }
