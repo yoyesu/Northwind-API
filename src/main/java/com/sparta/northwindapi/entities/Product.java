@@ -13,21 +13,11 @@ public class Product {
     @Column(name = "ProductID", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SupplierID", referencedColumnName = "SupplierID")
-    private Supplier supplier;
+    @Column(name = "SupplierID")
+    private int supplier;
 
-    public Supplier getSupplier(){
-        return supplier;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CategoryID", referencedColumnName = "CategoryID")
-    private Category Category;
-
-    public Category getCategory(){
-        return Category;
-    }
+    @Column(name = "CategoryID")
+    private int Category;
 
     @Size(max = 40)
     @NotNull
@@ -118,6 +108,14 @@ public class Product {
 
     public void setDiscontinued(Boolean discontinued) {
         this.discontinued = discontinued;
+    }
+
+    public int getSupplier(){
+        return supplier;
+    }
+
+    public int getCategory(){
+        return Category;
     }
 
 }
