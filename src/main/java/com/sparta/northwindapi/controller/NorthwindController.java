@@ -75,7 +75,7 @@ public class NorthwindController {
         return product;
     }
 
-    @GetMapping("/products/Suppliers&Categories")
+    @GetMapping("/products/suppliers&categories")
     public List<EntityModel<Product>> getProductsWithSuppliersAndCategories() throws IDNotFoundException {
         List<Product> products = productRepository.findAll();
         List<EntityModel<Product>> listOfEntityModels = new ArrayList<>();
@@ -83,8 +83,8 @@ public class NorthwindController {
             EntityModel<Product> entityModel = EntityModel.of(product);
             WebMvcLinkBuilder linkSupplier = linkTo(methodOn(this.getClass()).getSupplierById(product.getSupplier()));
             WebMvcLinkBuilder linkCategory= linkTo(methodOn(this.getClass()).getCategoryById(product.getCategory()));
-            entityModel.add(linkSupplier.withRel("Supplier"));
-            entityModel.add(linkCategory.withRel("Category"));
+            entityModel.add(linkSupplier.withRel("supplier"));
+            entityModel.add(linkCategory.withRel("category"));
             listOfEntityModels.add(entityModel);
         }
 
