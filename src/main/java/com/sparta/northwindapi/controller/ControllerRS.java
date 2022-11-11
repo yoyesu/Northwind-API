@@ -3,6 +3,7 @@ import com.sparta.northwindapi.entities.Customer;
 import com.sparta.northwindapi.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,8 +12,11 @@ import java.util.List;
 @RestController
 public class ControllerRS {
 
-    @Autowired
     private CustomerRepository customerRepo;
+    @Autowired
+    public ControllerRS(CustomerRepository customerRepo){
+        this.customerRepo = customerRepo;
+    }
 
     @GetMapping("/customer/all")
     public List<Customer> getAllCustomers(){
@@ -20,17 +24,18 @@ public class ControllerRS {
         return customerList;
     }
 
-    @GetMapping("/customer/customerName")
-    public Customer getCustomerByName(@RequestBody String companyName){
+    @GetMapping("/customer/{contactName}")
+    public Customer getCustomerByName(@PathVariable String contactName){
         List<Customer> customerList = customerRepo.findAll();
-        for(Customer customer :customerList){
-            if(customer.getCompanyName().equals(companyName)){
+        for(Customer customer : customerList){
+            if((customer.getContactName()).replace(" ","").equals(contactName)){
                 return customer;
             }
-            break;
         }
         return null;
     }
+
+
 
 
 }
