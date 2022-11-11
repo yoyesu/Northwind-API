@@ -57,9 +57,9 @@ Clone the repository below.
 
 `GET /products/all`
 
-curl -X 'GET' \
-  'http://localhost:8080/products/all' \
-  -H 'accept: */*'
+> curl -X 'GET' \
+>  'http://localhost:8080/products/all' \
+>  -H 'accept: */*
 
 ### Response
 
