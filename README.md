@@ -12,8 +12,7 @@ Igran.**
   * [Dependencies](#dependencies)
 * [**Requirements**](#requirements)
 * [**Getting Started**](#getting-started)
-* [**Results**](#results)
-* [**Future Development**](#future-development)
+* [**Endpoints**](#endpoints)
 
 ## About Project
 
