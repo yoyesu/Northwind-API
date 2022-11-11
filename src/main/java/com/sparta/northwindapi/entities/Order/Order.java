@@ -1,8 +1,6 @@
 package com.sparta.northwindapi.entities.Order;
 
-import com.sparta.northwindapi.entities.Customer;
-import com.sparta.northwindapi.entities.Employee.Employee;
-
+import org.springframework.hateoas.RepresentationModel;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -10,19 +8,17 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order extends RepresentationModel<Order> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "OrderID", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CustomerID")
-    private Customer customerID;
+    @Column(name = "CustomerID")
+    private String customerID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "EmployeeID")
-    private Employee employeeID;
+    @Column(name = "EmployeeID")
+    private int employeeID;
 
     @Column(name = "OrderDate")
     private Instant orderDate;
@@ -68,19 +64,19 @@ public class Order {
         this.id = id;
     }
 
-    public Customer getCustomerID() {
+    public String getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(Customer customerID) {
+    public void setCustomerID(String customerID) {
         this.customerID = customerID;
     }
 
-    public Employee getEmployeeID() {
+    public int getEmployeeID() {
         return employeeID;
     }
 
-    public void setEmployeeID(Employee employeeID) {
+    public void setEmployeeID(int employeeID) {
         this.employeeID = employeeID;
     }
 
