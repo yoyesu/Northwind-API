@@ -13,6 +13,22 @@ public class Product {
     @Column(name = "ProductID", nullable = false)
     private Integer id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SupplierID", referencedColumnName = "SupplierID")
+    private Supplier supplier;
+
+    public Supplier getSupplier(){
+        return supplier;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CategoryID", referencedColumnName = "CategoryID")
+    private Category Category;
+
+    public Category getCategory(){
+        return Category;
+    }
+
     @Size(max = 40)
     @NotNull
     @Column(name = "ProductName", nullable = false, length = 40)
@@ -37,6 +53,8 @@ public class Product {
     @NotNull
     @Column(name = "Discontinued", nullable = false)
     private Boolean discontinued = false;
+
+
 
     public Integer getId() {
         return id;
