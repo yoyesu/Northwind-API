@@ -4,6 +4,7 @@ import com.sparta.northwindapi.entities.*;
 import com.sparta.northwindapi.entities.Employee.Employee;
 import com.sparta.northwindapi.entities.Employee.Employeeterritory;
 import com.sparta.northwindapi.entities.Order.Order;
+import com.sparta.northwindapi.exceptions.IDNotFoundException;
 import com.sparta.northwindapi.repositories.*;
 import com.sparta.northwindapi.repositories.Employee.EmployeeRepository;
 import com.sparta.northwindapi.repositories.Employee.EmployeeterritoryRepository;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -57,12 +60,8 @@ public class NorthwindController {
     }
 
     @GetMapping("/products/{id}")
-    public Product getProductById(@PathVariable int id) {
-        Product product = null;
-        if (productRepository.findById(id).isPresent()) {
-            product = productRepository.findById(id).get();
-        }
-        return product;
+    public Product getProductById(@PathVariable int id) throws IDNotFoundException {
+        return productRepository.findById(id).orElseThrow(() -> new IDNotFoundException(404, id, "ID not found"));
     }
 
     @PatchMapping("/products/update/{id}")
@@ -77,7 +76,7 @@ public class NorthwindController {
     }
 
     @GetMapping("/products/Suppliers&Categories")
-    public List<EntityModel<Product>> getProductsWithSuppliersAndCategories(){
+    public List<EntityModel<Product>> getProductsWithSuppliersAndCategories() throws IDNotFoundException {
         List<Product> products = productRepository.findAll();
         List<EntityModel<Product>> listOfEntityModels = new ArrayList<>();
         for (Product product: products){
@@ -93,13 +92,13 @@ public class NorthwindController {
     }
 
     @GetMapping("/suppliers/{id}")
-    public Supplier getSupplierById(@PathVariable int id) {
-        return supplierRepository.findById(id).orElse(null);
+    public Supplier getSupplierById(@PathVariable int id) throws IDNotFoundException{
+        return supplierRepository.findById(id).orElseThrow(() -> new IDNotFoundException(404, id, "ID not found"));
     }
 
     @GetMapping("/category/{id}")
-    public Category getCategoryById(@PathVariable int id) {
-        return categoryRepository.findById(id).orElse(null);
+    public Category getCategoryById(@PathVariable int id) throws IDNotFoundException {
+        return categoryRepository.findById(id).orElseThrow(() -> new IDNotFoundException(404, id, "ID not found"));
     }
 
 
@@ -139,7 +138,7 @@ public class NorthwindController {
     }
 
     @GetMapping("/territories/all")
-    public List<EntityModel<Territory>> getAllTerritories() {
+    public List<EntityModel<Territory>> getAllTerritories() throws IDNotFoundException {
         List<EntityModel<Territory>> entityModelTerritory = new ArrayList<>();
         List<Territory> territories = territoryRepo.findAll();
         List<Employee> employees = employeeRepo.findAll();
@@ -167,14 +166,13 @@ public class NorthwindController {
     }
 
     @GetMapping("/employee/{id}") //relative URL
-    public Employee getEmployee(@PathVariable Integer id)   {
-        return employeeRepo.findById(id).get();
+    public Employee getEmployee(@PathVariable Integer id)  throws IDNotFoundException {
+        return employeeRepo.findById(id).orElseThrow(() -> new IDNotFoundException(404, id, "ID not found"));
     }
 
     @GetMapping("/orders/{id}")
-    public Order getOrdersById(@PathVariable int id){
-        Order listOfOrders = orderRepository.findById(id).get();
-        return listOfOrders;
+    public Order getOrdersById(@PathVariable int id) throws IDNotFoundException {
+        return orderRepository.findById(id).orElseThrow(() -> new IDNotFoundException(404, id, "ID not found"));
     }
 
     @GetMapping("/orders/range")
@@ -198,14 +196,17 @@ public class NorthwindController {
                 ordersInRange.add(order);
             }
         }
-//        for (Order order : ordersInRange){
-//            Link linkBuilder = WebMvcLinkBuilder.linkTo(methodOn(this.getClass()).getCustomerById(order.getCustomerID())).withSelfRel();
-//            order.add(linkBuilder);
-//        }
-//        Link link = linkTo(methodOn(ControllerML.class).getOrdersByOrderDateRange(startDate, endDate)).withSelfRel();
         CollectionModel<Order> entityOrderList = CollectionModel.of(ordersInRange);
 
         return entityOrderList;
+    }
+
+    @ExceptionHandler(IDNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String>  throwIDNotFoundException(IDNotFoundException exception){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(exception.toString());
     }
 
 }
