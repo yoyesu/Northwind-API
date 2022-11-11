@@ -13,6 +13,12 @@ public class Product {
     @Column(name = "ProductID", nullable = false)
     private Integer id;
 
+    @Column(name = "SupplierID")
+    private int supplier;
+
+    @Column(name = "CategoryID")
+    private int Category;
+
     @Size(max = 40)
     @NotNull
     @Column(name = "ProductName", nullable = false, length = 40)
@@ -37,6 +43,8 @@ public class Product {
     @NotNull
     @Column(name = "Discontinued", nullable = false)
     private Boolean discontinued = false;
+
+
 
     public Integer getId() {
         return id;
@@ -100,6 +108,14 @@ public class Product {
 
     public void setDiscontinued(Boolean discontinued) {
         this.discontinued = discontinued;
+    }
+
+    public int getSupplier(){
+        return supplier;
+    }
+
+    public int getCategory(){
+        return Category;
     }
 
 }
