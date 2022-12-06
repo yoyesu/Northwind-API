@@ -96,19 +96,19 @@ public class NorthwindController {
         return supplierRepository.findById(id).orElseThrow(() -> new IDNotFoundException(404, id, "ID not found"));
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/categories/{id}")
     public Category getCategoryById(@PathVariable int id) throws IDNotFoundException {
         return categoryRepository.findById(id).orElseThrow(() -> new IDNotFoundException(404, id, "ID not found"));
     }
 
 
-    @GetMapping("/customer/all")
+    @GetMapping("/customers/all")
     public List<Customer> getAllCustomers() {
         List<Customer> customerList = customerRepository.findAll();
         return customerList;
     }
 
-    @GetMapping("/customer/{id}")
+    @GetMapping("/customers/{id}")
     public EntityModel<Customer> getCustomerById (@PathVariable String id){
         List<Customer> customerList = customerRepository.findAll();
         for (Customer customer: customerList){
@@ -126,7 +126,7 @@ public class NorthwindController {
     }
 
 
-    @GetMapping("/customer/name/{contactName}")
+    @GetMapping("/customers/name/{contactName}")
     public Customer getCustomerByName(@PathVariable String contactName){
         List<Customer> customerList = customerRepository.findAll();
         for(Customer customer : customerList){
@@ -165,7 +165,7 @@ public class NorthwindController {
         return entityModelTerritory;
     }
 
-    @GetMapping("/employee/{id}") //relative URL
+    @GetMapping("/employees/{id}") //relative URL
     public Employee getEmployee(@PathVariable Integer id)  throws IDNotFoundException {
         return employeeRepo.findById(id).orElseThrow(() -> new IDNotFoundException(404, id, "ID not found"));
     }
